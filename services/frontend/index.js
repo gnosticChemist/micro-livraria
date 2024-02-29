@@ -31,7 +31,8 @@ function newBook(book) {
                     <button class="button button-buy is-success is-fullwidth">Comprar</button>
                 </div>
             </div>
-        </div>`;
+        </div>
+        `;
     return div;
 }
 

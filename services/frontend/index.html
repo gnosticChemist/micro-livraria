@@ -25,6 +25,14 @@
             <div class="columns books"></div>
         </section>
 
+        <div class="field has-addons" style="justify-content: center">
+            <div class="control">
+                <input class="input" type="text" placeholder="Digite o ID"  id="fdConsulta"/>
+            </div>
+            <div class="control">
+                <a class="button button-shipping is-info" id="btConsulta"> Consultar ID </a>
+            </div>
+        </div>
         <footer class="footer has-text-centered">Feito com ❤️ na UFMG</footer>
 
         <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
@@ -32,5 +40,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="index.js"></script>
+        <script>
+          $("#btConsulta").click(function(){
+            fetch('http://localhost:3000/product/' + $("#fdConsulta").val())
+                .then((data) => {
+                    if (data.ok) {
+                        return data.json();
+                    }
+                    throw data.statusText;
+                })
+                .then((data) => {
+                    swal(`${data.name}`, `Por ${data.author}\nR$${data.price.toFixed(2)}`,
+                          `${data.photo}`);
+                })
+                .catch((err) => {
+                    swal('Erro', 'ID não encontrado.', 'error');
+                    console.error(err);
+                });
+
+          });
+        </script>
     </body>
 </html>
